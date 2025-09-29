@@ -27,14 +27,5 @@ CategorySchema.set("toObject", { virtuals: true });
 CategorySchema.set("toJSON", { virtuals: true });
 
 //eliminacion en cascada
-CategorySchema.pre("findOneAndDelete", async function (next) {
-  const category = await this.model.findOne(this.getFilter());
-  if (category) {
-    await AssetModel.updateMany(
-      { categories: category._id },
-      { $pull: { categories: category._id } }
-    );
-  }
-  next();
-});
+
 export const CategoryModel = model("Category", CategorySchema);
