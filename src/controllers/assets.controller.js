@@ -19,15 +19,6 @@ export const createAsset = async (req, res) => {
     if (!user)
       return res.status(404).json({ msg: "Usuario responsable no encontrado" });
 
-    if (categories && categories.length > 0) {
-      const foundCategories = await CategoryModel.find({
-        _id: { $in: categories },
-      });
-      if (foundCategories.length !== categories.length) {
-        return res.status(404).json({ msg: "Una o más categorías no existen" });
-      }
-    }
-
     const asset = await AssetModel.create({
       inventoryNumber,
       description,
